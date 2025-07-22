@@ -2,23 +2,45 @@ import express from "express";
 import { pool } from "../config/db.js";
 import authenticate from "../middlewares/auth.js";
 import dotenv from "dotenv";
+import { getUserById } from "../models/userModel.js";
 
 dotenv.config();
 
 const router = express.Router();
 
-async function getUserById(id) {
+router.post("/sensor_data", async (req, res) => {
+  const {
+    id_usuario,
+    frecuencia_cardiaca,
+    oximetro,
+    latitud,
+    longitud,
+    fecha,
+    tiempo,
+  } = req.body;
+
   try {
-    const user = await pool.query(
-      "SELECT * FROM usuario_info WHERE id_usuario = $1",
-      [id]
+    await pool.query(
+      "INSERT INTO datos_sensores (id_usuario, frecuencia_cardiaca, oximetro, latitud, longitud, fecha, tiempo) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [
+        id_usuario,
+        frecuencia_cardiaca,
+        oximetro,
+        latitud,
+        longitud,
+        fecha,
+        tiempo,
+      ]
     );
-    return user.rows[0];
+    console.log("Datos del sensor recibidos con éxito para el usuario", {
+      id_usuario,
+    });
+    res.status(200).send("Datos del sensor recibidos con éxito");
   } catch (error) {
-    console.error("Error al obtener el usuario:", error);
-    throw error;
+    console.error("Error al recibir los datos del sensor:", error);
+    res.status(500).send("Hubo un error al recibir los datos del sensor");
   }
-}
+});
 
 router.get("/datos/:id", authenticate, async (req, res) => {
   const { id } = req.params;
@@ -53,40 +75,6 @@ router.get("/datos/:id", authenticate, async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Hubo un error al verificar el usuario" });
-  }
-});
-
-router.post("/sensor_data", async (req, res) => {
-  const {
-    id_usuario,
-    frecuencia_cardiaca,
-    oximetro,
-    latitud,
-    longitud,
-    fecha,
-    tiempo,
-  } = req.body;
-
-  try {
-    await pool.query(
-      "INSERT INTO datos_sensores (id_usuario, frecuencia_cardiaca, oximetro, latitud, longitud, fecha, tiempo) VALUES ($1, $2, $3, $4, $5, $6, $7)",
-      [
-        id_usuario,
-        frecuencia_cardiaca,
-        oximetro,
-        latitud,
-        longitud,
-        fecha,
-        tiempo,
-      ]
-    );
-    console.log("Datos del sensor recibidos con éxito para el usuario", {
-      id_usuario,
-    });
-    res.status(200).send("Datos del sensor recibidos con éxito");
-  } catch (error) {
-    console.error("Error al recibir los datos del sensor:", error);
-    res.status(500).send("Hubo un error al recibir los datos del sensor");
   }
 });
 

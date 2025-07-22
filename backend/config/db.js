@@ -5,11 +5,16 @@ dotenv.config();
 const { Pool } = pkg;
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  //connectionString: process.env.DATABASE_URL,
+  user: postgres,
+  host: localhost,
+  database: tics,
+  password: postgres,
+  port: 5432,
 });
 
 pool
-  .query("SELECT NOW()")
+  .connect()
   .then(() => {
     console.log("Conexión a la base de datos con Pool exitosa");
   })
