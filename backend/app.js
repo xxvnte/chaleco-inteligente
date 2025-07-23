@@ -11,11 +11,12 @@ const isProduction = process.env.NODE_ENV === "production";
 
 app.use(
   cors({
-    origin: "https://chaleco-inteligente-frontend.vercel.app",
+    //origin: "https://chaleco-inteligente-frontend.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
-    exposedHeaders: ['Set-Cookie']
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
+    exposedHeaders: ["Set-Cookie"],
   })
 );
 

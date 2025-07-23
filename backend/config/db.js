@@ -6,10 +6,10 @@ const { Pool } = pkg;
 
 const pool = new Pool({
   //connectionString: process.env.DATABASE_URL,
-  user: postgres,
-  host: localhost,
-  database: tics,
-  password: postgres,
+  user: "postgres",
+  host: "localhost",
+  database: "tics",
+  password: "postgres",
   port: 5432,
 });
 

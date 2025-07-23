@@ -7,7 +7,9 @@ import {
   profileUser,
   registerUser,
   updateUser,
+  logoutUser,
 } from "../controllers/userController.js";
+import { getUserById } from "../models/userModel.js";
 
 dotenv.config();
 
@@ -18,35 +20,6 @@ router.post("/login", loginUser);
 router.get("/user_profile/:id", authenticate, profileUser);
 router.post("/update_user/:id", authenticate, updateUser);
 router.post("/delete_user/:id", authenticate, deleteUserAcount);
-
-router.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error al cerrar sesión:", err);
-      return res.status(500).json({ message: "Error al cerrar sesión" });
-    }
-
-    res.clearCookie("token");
-    res.clearCookie("connect.sid");
-    res.json({ message: "Sesión cerrada exitosamente" });
-  });
-});
-
-//eliminar luego de retoques en frontend para usar endpoint user_profile
-router.get("/edit_user/:id", authenticate, async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const user = await getUserById(id);
-    if (user) {
-      return res.json(user);
-    } else {
-      return res.status(404).send("Usuario no encontrado");
-    }
-  } catch (error) {
-    console.error("Error al obtener el usuario para editar:", error);
-    res.status(500).send("Hubo un error al obtener el usuario para editar");
-  }
-});
+router.post("/logout", logoutUser);
 
 export default router;

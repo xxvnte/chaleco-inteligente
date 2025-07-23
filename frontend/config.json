@@ -5,7 +5,7 @@
     "environment": "production"
   },
   "api": {
-    "url": "https://chaleco-inteligente-backend.onrender.com",
+    "url": "http://localhost:3000",
     "timeout": 10000
   }
 }

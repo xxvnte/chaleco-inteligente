@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
 import config from "../../config.json";
 
 export function Register() {
@@ -320,14 +319,21 @@ export function EditUser() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           `${config.api.url}/user_profile/${userId}`,
           {
-            withCredentials: true,
+            method: "GET",
+            credentials: "include",
             headers: getAuthHeaders(),
           }
         );
-        setFormData(response.data);
+        if (!response.ok) {
+          throw new Error("Error al cargar los datos del usuario");
+        }
+
+        const data = await response.json();
+
+        setFormData(data);
       } catch (error) {
         console.error("Error al cargar los datos del usuario:", error);
       }
@@ -351,16 +357,17 @@ export function EditUser() {
     console.log("Datos enviados:", formData);
 
     try {
-      const response = await axios.post(
-        `${config.api.url}/update_user/${userId}`,
-        formData,
-        {
-          headers: getAuthHeaders(),
-          withCredentials: true,
-        }
-      );
+      const response = await fetch(`${config.api.url}/update_user/${userId}`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          ...getAuthHeaders(),
+        },
+        body: JSON.stringify(formData),
+      });
 
-      if (response.status === 200) {
+      if (response.ok) {
         navigate(`/user_profile/${userId}`);
       } else {
         console.error("Error al actualizar el perfil");

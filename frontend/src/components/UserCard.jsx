@@ -20,7 +20,7 @@ export function UserCard() {
       try {
         if (parseInt(paramUserId, 10) === parseInt(userId, 10)) {
           const response = await fetch(
-            `${config.api.url}/edit_user/${paramUserId}`,
+            `${config.api.url}/user_profile/${paramUserId}`,
             {
               method: "GET",
               credentials: "include",
@@ -33,8 +33,8 @@ export function UserCard() {
           }
 
           const data = await response.json();
-          console.log("Datos del usuario:", data);
-          setUser(data);
+          console.log("Datos del usuario:", data.user);
+          setUser(data.user);
         } else {
           navigate("/login");
         }

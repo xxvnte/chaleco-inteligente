@@ -1,19 +1,12 @@
-import express from "express";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
 import {
   createUser,
   getUserById,
   getUserByName,
   verifyPassword,
-  updateUser,
   deleteUser,
   editUser,
 } from "../models/userModel.js";
-
-dotenv.config();
-
-const router = express.Router();
 
 export const registerUser = async (req, res) => {
   const { nombre, contacto_de_confianza, clave, edad, peso, genero, estatura } =
@@ -51,9 +44,11 @@ export const loginUser = async (req, res) => {
   const { nombre, clave } = req.body;
 
   try {
+    const user = await getUserByName(nombre);
+
     if (await verifyPassword(nombre, clave)) {
       const token = jwt.sign(
-        { id: user.rows[0].id_usuario },
+        { id: user.id_usuario },
         process.env.JWT_SECRET,
         { expiresIn: "1h" }
       );
@@ -68,11 +63,11 @@ export const loginUser = async (req, res) => {
       });
 
       req.session.isAuthenticated = true;
-      req.session.userId = user.rows[0].id_usuario;
+      req.session.userId = user.id_usuario;
 
       res.status(200).json({
         success: true,
-        userId: user.rows[0].id_usuario,
+        userId: user.id_usuario,
         token: token,
       });
     } else {
@@ -86,6 +81,19 @@ export const loginUser = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+export const logoutUser = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error al cerrar sesión:", err);
+      return res.status(500).json({ message: "Error al cerrar sesión" });
+    }
+
+    res.clearCookie("token");
+    res.clearCookie("connect.sid");
+    res.json({ message: "Sesión cerrada exitosamente" });
+  });
 };
 
 export const profileUser = async (req, res) => {
@@ -158,5 +166,3 @@ export const deleteUserAcount = async (req, res) => {
     res.status(500).send("Hubo un error al eliminar el usuario");
   }
 };
-
-export default router;

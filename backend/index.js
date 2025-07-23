@@ -1,17 +1,17 @@
 import { app } from "./app.js";
 import userRouter from "./routes/user.js";
-import mainRouter from "./routes/main.js";
+import sensorRouter from "./routes/sensor.js";
 
 const port = 3000;
 
 app.use((req, res, next) => {
-  console.log(`Received ${req.method} request for ${req.url}`);
+  console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
   next();
 });
 
 app.use(userRouter);
-app.use(mainRouter);
+app.use(sensorRouter);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Servidor corriendo en http://localhost:${port}`);
 });

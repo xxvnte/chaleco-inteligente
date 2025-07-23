@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 import config from "../../config.json";
@@ -23,20 +22,26 @@ const DatosSensores = () => {
       }
 
       try {
-        const response = await axios.get(
-          `${config.api.url}/datos/${paramUserId}`,
-          {
-            withCredentials: true,
-            headers: getAuthHeaders(),
-          }
-        );
+        const response = await fetch(`${config.api.url}/datos/${paramUserId}`, {
+          method: "GET",
+          credentials: "include",
+          headers: getAuthHeaders(),
+        });
 
-        setUsuarioData(response.data.user);
-        setSaludData(response.data.saludData);
-        setGpsData(response.data.gpsData);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
 
-        calcularPromedios(response.data.saludData);
-        calcularEstadisticasGPS(response.data.gpsData, response.data.user);
+        const data = await response.json();
+
+        console.log("Response from API:", response);
+
+        setUsuarioData(data.sensorData.user);
+        setSaludData(data.sensorData.saludData);
+        setGpsData(data.sensorData.gpsData);
+
+        calcularPromedios(data.sensorData.saludData);
+        calcularEstadisticasGPS(data.sensorData.gpsData, data.sensorData.user);
       } catch (error) {
         console.error("Error fetching data:", error);
         if (
