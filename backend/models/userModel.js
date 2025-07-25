@@ -57,20 +57,6 @@ export const getUserByName = async (nombre) => {
   }
 };
 
-export const verifyPassword = async (nombre, clave) => {
-  try {
-    const user = await getUserByName(nombre);
-    if (!user) {
-      throw new Error("Usuario no encontrado");
-    }
-    await bcrypt.compare(clave, user.clave);
-    return true;
-  } catch (error) {
-    console.error("Error al verificar la contraseña:", error);
-    throw error;
-  }
-};
-
 export const editUser = async (
   id,
   username,

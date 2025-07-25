@@ -11,7 +11,7 @@ const authenticate = (req, res, next) => {
       tokenSource = "header";
     }
   }
-
+  /*
   console.log(
     "Auth check - Cookie headers:",
     req.headers.cookie ? "Present" : "Missing"
@@ -26,12 +26,14 @@ const authenticate = (req, res, next) => {
     "Auth check - Session:",
     req.session?.isAuthenticated ? "Authenticated" : "Not authenticated"
   );
-
+*/
   if (!token) {
-    console.log("Authentication failed: No token provided");
+    // console.log("Authentication failed: No token provided");
     if (req.cookies.token || req.session.isAuthenticated) {
       req.session.destroy((err) => {
-        if (err) console.log("Error destroying session:", err);
+        if (err) {
+          //console.log("Error destroying session:", err);
+        }
       });
       res.clearCookie("token");
     }
@@ -42,17 +44,19 @@ const authenticate = (req, res, next) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      console.log("Authentication failed: Invalid token", err.message);
+      //console.log("Authentication failed: Invalid token", err.message);
       if (tokenSource === "cookie") {
         req.session.destroy((err) => {
-          if (err) console.log("Error destroying session:", err);
+          if (err) {
+            // console.log("Error destroying session:", err);
+          }
         });
         res.clearCookie("token");
       }
       return res.status(401).json({ message: "Unauthorized - Invalid token" });
     }
 
-    console.log("Authentication successful for user:", decoded.id);
+    //console.log("Authentication successful for user:", decoded.id);
     req.user = decoded;
 
     if (!req.session.userId || req.session.userId !== decoded.id) {

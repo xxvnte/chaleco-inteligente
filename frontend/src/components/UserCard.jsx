@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { useUser } from "../hooks/useUser";
 import { useNavigate, useParams } from "react-router-dom";
-import config from "../../config.json";
 
 export function UserCard() {
+  const { profileUser, deleteUser } = useUser();
   const { userId, getAuthHeaders } = useAuth();
+  const headers = getAuthHeaders();
   const { userId: paramUserId } = useParams();
   const [user, setUser] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -19,28 +21,13 @@ export function UserCard() {
     const fetchData = async () => {
       try {
         if (parseInt(paramUserId, 10) === parseInt(userId, 10)) {
-          const response = await fetch(
-            `${config.api.url}/user_profile/${paramUserId}`,
-            {
-              method: "GET",
-              credentials: "include",
-              headers: getAuthHeaders(),
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log("Datos del usuario:", data.user);
+          const data = await profileUser(userId, headers);
           setUser(data.user);
         } else {
           navigate("/login");
         }
       } catch (error) {
         console.error("Error al obtener el perfil del usuario:", error.message);
-
         if (error.message.includes("401") || error.message.includes("403")) {
           navigate("/login");
         }
@@ -52,13 +39,9 @@ export function UserCard() {
 
   const handleDeleteUser = async () => {
     try {
-      const response = await fetch(`${config.api.url}/delete_user/${userId}`, {
-        method: "POST",
-        headers: getAuthHeaders(),
-        credentials: "include",
-      });
+      const response = await deleteUser(userId, headers);
 
-      if (response.ok) {
+      if (response.success) {
         navigate("/login");
       } else {
         console.error("Error al eliminar el usuario:", response.statusText);

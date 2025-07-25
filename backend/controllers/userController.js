@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 import {
   createUser,
   getUserById,
   getUserByName,
-  verifyPassword,
   deleteUser,
   editUser,
 } from "../models/userModel.js";
@@ -40,6 +40,22 @@ export const registerUser = async (req, res) => {
   }
 };
 
+export const verifyPassword = async (nombre, clave) => {
+  try {
+    const user = await getUserByName(nombre);
+    const verify = await bcrypt.compare(clave, user.clave);
+
+    if (!verify) {
+      throw new Error("Contraseña incorrecta");
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error al verificar la contraseña:", error);
+    throw error;
+  }
+};
+
 export const loginUser = async (req, res) => {
   const { nombre, clave } = req.body;
 
@@ -47,11 +63,9 @@ export const loginUser = async (req, res) => {
     const user = await getUserByName(nombre);
 
     if (await verifyPassword(nombre, clave)) {
-      const token = jwt.sign(
-        { id: user.id_usuario },
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" }
-      );
+      const token = jwt.sign({ id: user.id_usuario }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
 
       res.cookie("token", token, {
         httpOnly: true,
@@ -155,14 +169,22 @@ export const deleteUserAcount = async (req, res) => {
   }
 
   try {
-    await deleteUser(id);
+    await deleteUser(userId);
 
     req.session.destroy(() => {
       res.clearCookie("token");
-      res.status(200).send("Cuenta eliminada");
+      res.status(200).json({
+        success: true,
+        message: "Usuario eliminado exitosamente",
+      });
     });
+
   } catch (error) {
     console.error("Error al eliminar el usuario:", error);
-    res.status(500).send("Hubo un error al eliminar el usuario");
+    res.status(500).json({
+      success: false,
+      message: "Hubo un error al eliminar el usuario",
+      error: error.message,
+    });
   }
 };

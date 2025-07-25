@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import config from "../../config.json";
+import { useUser } from "../hooks/useUser";
 
 export function Register() {
+  const { registerUser } = useUser();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     contacto_de_confianza: "",
@@ -25,21 +28,14 @@ export function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${config.api.url}/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        window.location.href = "/login";
+      const response = await registerUser(formData);
+      if (response.success) {
+        navigate("/login");
       } else {
-        console.error("Error al registrar usuario");
+        console.error("error al registrar usuario:", response.message);
       }
     } catch (error) {
-      console.error("Error en el envío del formulario:", error);
+      console.error("error en el envio del formulario:", error);
     }
   };
 
@@ -196,12 +192,14 @@ export function Register() {
 }
 
 export function Login() {
+  const { loginUser } = useUser();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nombre: "",
     clave: "",
   });
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -214,28 +212,12 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${config.api.url}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Datos de inicio de sesión:", data);
-        if (data.success) {
-          login(data.userId, data.token);
-          console.log("ID del usuario autenticado:", data.userId);
-          navigate(`/user_profile/${data.userId}`);
-        } else {
-          console.error("Error al ingresar:", data.message);
-        }
+      const response = await loginUser(formData);
+      if (response.success) {
+        login(response.userId, response.token);
+        navigate(`/user_profile/${response.userId}`);
       } else {
-        const errorData = await response.json();
-        console.error("Error de inicio de sesión:", errorData.message);
+        console.error("error al ingresar usuario:", response.message);
       }
     } catch (error) {
       console.error("Error en el envío del formulario:", error);
@@ -306,6 +288,8 @@ export function Login() {
 export function EditUser() {
   const { userId } = useParams();
   const { getAuthHeaders } = useAuth();
+  const { profileUser, updateUser } = useUser();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     clave: "",
@@ -314,26 +298,13 @@ export function EditUser() {
     peso: "",
     altura: "",
   });
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `${config.api.url}/user_profile/${userId}`,
-          {
-            method: "GET",
-            credentials: "include",
-            headers: getAuthHeaders(),
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Error al cargar los datos del usuario");
-        }
-
-        const data = await response.json();
-
-        setFormData(data);
+        const headers = getAuthHeaders();
+        const data = await profileUser(userId, headers);
+        setFormData(data.user);
       } catch (error) {
         console.error("Error al cargar los datos del usuario:", error);
       }
@@ -354,20 +325,11 @@ export function EditUser() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Datos enviados:", formData);
-
     try {
-      const response = await fetch(`${config.api.url}/update_user/${userId}`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-          ...getAuthHeaders(),
-        },
-        body: JSON.stringify(formData),
-      });
+      const headers = getAuthHeaders();
+      const response = await updateUser(userId, formData, headers);
 
-      if (response.ok) {
+      if (response.success) {
         navigate(`/user_profile/${userId}`);
       } else {
         console.error("Error al actualizar el perfil");

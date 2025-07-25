@@ -6,9 +6,9 @@ import {
   Sobre_el_proyecto,
   Mantenimiento,
   Mas,
-} from "./components/Secciones";
+} from "./components/Sections";
 import { UserCard } from "./components/UserCard";
-import DatosSensores from "./components/DatosSensores";
+import DatosSensores from "./components/SensorData";
 import { useAuth } from "./context/AuthContext";
 
 function App() {

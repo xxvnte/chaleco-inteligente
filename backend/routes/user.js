@@ -9,7 +9,6 @@ import {
   updateUser,
   logoutUser,
 } from "../controllers/userController.js";
-import { getUserById } from "../models/userModel.js";
 
 dotenv.config();
 
