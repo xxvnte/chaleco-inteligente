@@ -8,7 +8,7 @@ import {
   updateUser,
 } from "../hooks/useUser";
 
-export function Register() {
+export const Register = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -193,9 +193,9 @@ export function Register() {
       </div>
     </div>
   );
-}
+};
 
-export function Login() {
+export const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -286,9 +286,9 @@ export function Login() {
       </div>
     </div>
   );
-}
+};
 
-export function EditUser() {
+export const EditUser = () => {
   const { userId } = useParams();
   const { getAuthHeaders } = useAuth();
   const navigate = useNavigate();
@@ -447,4 +447,4 @@ export function EditUser() {
       </div>
     </div>
   );
-}
+};

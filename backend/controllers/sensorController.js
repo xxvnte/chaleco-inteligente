@@ -1,8 +1,6 @@
 import {
   createSensorData,
   getSensorDataByUserId,
-  getSaludDataByUserId,
-  getGpsDataByUserId,
 } from "../models/sensorModel.js";
 
 export const sendSensorData = async (req, res) => {
@@ -64,46 +62,6 @@ export const getSensorData = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Hubo un error al obtener los datos del sensor",
-      error: error.message,
-    });
-  }
-};
-
-export const getSaludData = async (req, res) => {
-  const { userId } = req.session;
-
-  try {
-    const saludData = await getSaludDataByUserId(userId);
-    res.json({
-      success: true,
-      message: "Datos de salud obtenidos exitosamente",
-      saludData: saludData,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: "Hubo un error al obtener los datos de salud",
-      error: error.message,
-    });
-  }
-};
-
-export const getGpsData = async (req, res) => {
-  const { userId } = req.session;
-
-  try {
-    const gpsData = await getGpsDataByUserId(userId);
-    res.json({
-      success: true,
-      message: "Datos de GPS obtenidos exitosamente",
-      gpsData: gpsData,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({
-      success: false,
-      message: "Hubo un error al obtener los datos de GPS",
       error: error.message,
     });
   }

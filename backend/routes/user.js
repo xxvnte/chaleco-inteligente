@@ -1,6 +1,5 @@
 import express from "express";
 import authenticate from "../middlewares/auth.js";
-import dotenv from "dotenv";
 import {
   deleteUserAcount,
   loginUser,
@@ -9,8 +8,6 @@ import {
   updateUser,
   logoutUser,
 } from "../controllers/userController.js";
-
-dotenv.config();
 
 const router = express.Router();
 

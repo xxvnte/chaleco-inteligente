@@ -2,7 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { Register, Login, EditUser } from "./components/UserForm";
 import Navbar from "./components/Navbar";
 import { Home, AboutProject, Maintenance, More } from "./components/Sections";
-import { UserCard } from "./components/UserCard";
+import UserCard from "./components/UserCard";
 import { useAuth } from "./context/AuthContext";
 import SensorData from "./components/SensorData";
 

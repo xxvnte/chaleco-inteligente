@@ -16,7 +16,7 @@ const pool = new Pool({
 pool
   .connect()
   .then(() => {
-    console.log("Conexión a la base de datos con Pool exitosa");
+    console.log("Conexión a la base de datos exitosa");
   })
   .catch((error) => {
     console.error("Error al conectar a la base de datos:", error);

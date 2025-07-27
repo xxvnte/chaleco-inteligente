@@ -55,34 +55,3 @@ export const getSensorDataByUserId = async (id_usuario) => {
     throw error;
   }
 };
-
-export const getSaludDataByUserId = async (id_usuario) => {
-  try {
-    const user = await getUserById(id_usuario);
-    const saludData = await pool.query(
-      "SELECT frecuencia_cardiaca, oximetro, tiempo FROM datos_sensores WHERE id_usuario = $1",
-      [user.id_usuario]
-    );
-
-    return saludData.rows;
-  } catch (error) {
-    console.error("Error al obtener los datos de salud del sensor:", error);
-    throw error;
-  }
-};
-
-export const getGpsDataByUserId = async (id_usuario) => {
-  try {
-    const user = await getUserById(id_usuario);
-    console.log("User ID:", user.id_usuario);
-    const gpsData = await pool.query(
-      "SELECT latitud, longitud, fecha, tiempo FROM datos_sensores WHERE id_usuario = $1",
-      [user.id_usuario]
-    );
-
-    return gpsData.rows;
-  } catch (error) {
-    console.error("Error al obtener los datos GPS del sensor:", error);
-    throw error;
-  }
-};

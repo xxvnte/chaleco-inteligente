@@ -5,7 +5,7 @@ import sensorRouter from "./routes/sensor.js";
 const port = 3000;
 
 app.use((req, res, next) => {
-  //console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
+  console.log(`Request Method: ${req.method}, Request URL: ${req.url}`);
   next();
 });
 

@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { profileUser, deleteUser } from "../hooks/useUser";
 
-export function UserCard() {
+const UserCard = () => {
   const { userId, getAuthHeaders } = useAuth();
   const headers = getAuthHeaders();
   const { userId: paramUserId } = useParams();
@@ -175,4 +175,6 @@ export function UserCard() {
       </div>
     </div>
   );
-}
+};
+
+export default UserCard;
