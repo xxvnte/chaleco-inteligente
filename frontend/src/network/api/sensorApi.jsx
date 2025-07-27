@@ -1,6 +1,6 @@
 import config from "../../../config.json";
 
-export const getSensorDataByUserId = async (userId, headers) => {
+export const getSensorDataByUserIdApi = async (userId, headers) => {
   try {
     const response = await fetch(`${config.api.url}/sensor-data/${userId}`, {
       method: "GET",

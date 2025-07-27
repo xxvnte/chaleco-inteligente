@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
-import { getSensorDataByUserId } from "../network/api/sensorApi";
-import config from "../../config.json";
+import { getSensorDataByUserId } from "../hooks/useSensor";
 
 const SensorData = () => {
   const { userId, getAuthHeaders } = useAuth();
