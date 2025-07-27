@@ -1,6 +1,13 @@
 import React from "react";
 
-export function Inicio() {
+export function Home() {
+  const handleScroll = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="flex items-center justify-center bg-gray-400 py-16 px-6">
       <div className="text-left">
@@ -10,19 +17,19 @@ export function Inicio() {
           tecnología avanzada.
         </p>
         <div className="mt-6">
-          <a
-            href="/mas"
-            className="inline-block rounded-md hover:bg-gray-700 bg-gray-800 px-4 py-2 text-white font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+          <button
+            onClick={() => handleScroll("more")}
+            className="inline-block rounded-md hover:bg-gray-700 bg-gray-800 px-4 py-2 text-white font-semibold shadow-md"
           >
             Conoce Más
-          </a>
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export function Sobre_el_proyecto() {
+export function AboutProject() {
   return (
     <div className="flex flex-col items-center py-12 px-6 bg-gray-300 rounded-t-full">
       <div className="max-w-4xl text-center">
@@ -43,7 +50,7 @@ export function Sobre_el_proyecto() {
   );
 }
 
-export function Mantenimiento() {
+export function Maintenance() {
   return (
     <div className="flex flex-col items-center py-5 px-6 bg-gray-300 rounded-md">
       <div className="max-w-4xl ">
@@ -98,7 +105,7 @@ export function Mantenimiento() {
   );
 }
 
-export function Mas() {
+export function More() {
   return (
     <div className="flex flex-col items-center py-12 px-6 bg-gray-300 rounded-md">
       <div className="max-w-4xl text-center">

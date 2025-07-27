@@ -40,7 +40,7 @@ export function Register() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-15 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-14 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-800">
           Registro
@@ -225,7 +225,7 @@ export function Login() {
   };
 
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-15 lg:px-8">
+    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-14 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-800">
           Ingreso
@@ -340,7 +340,7 @@ export function EditUser() {
   };
 
   return (
-    <div className="flex items-center justify-center py-14 bg-gray-400">
+    <div className="flex items-center justify-center py-20 bg-gray-400">
       <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
         <h2 className="text-2xl font-bold text-center mb-6">Editar perfil</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

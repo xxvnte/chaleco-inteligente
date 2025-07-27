@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
 import config from "../../config.json";
 
-const DatosSensores = () => {
+const SensorData = () => {
   const { userId, getAuthHeaders } = useAuth();
   const { userId: paramUserId } = useParams();
   const [usuarioData, setUsuarioData] = useState({});
@@ -160,95 +160,113 @@ const DatosSensores = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 bg-gray-50 rounded-lg shadow-md max-w-5xl">
-      <div className="header text-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">
-          Chaleco Inteligente
-        </h1>
-      </div>
-
-      <div className="info">
-        <h2 className="text-xl font-semibold text-gray-700 mb-2">
-          Datos de Frecuencia Cardíaca y Oxímetro
-        </h2>
-        <div id="saludData">
-          <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
-            <thead className="bg-gray-200">
-              <tr>
-                <th className="p-2 text-left">Frecuencia Cardíaca</th>
-                <th className="p-2 text-left">Oxímetro</th>
-                <th className="p-2 text-left">Tiempo</th>
-              </tr>
-            </thead>
-            <tbody>
-              {saludData.slice(-4).map((data, index) => (
-                <tr key={index} className="border-b hover:bg-gray-100">
-                  <td className="p-2">{data.frecuencia_cardiaca}</td>
-                  <td className="p-2">{data.oximetro}</td>
-                  <td className="p-2">{data.tiempo}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-
-          <div className="mt-4">
-            <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
-              <thead className="bg-gray-200">
-                <tr>
-                  <th className="p-2 text-left"> </th>
-                  <th className="p-2 text-left">Promedio Actual</th>
-                  <th className="p-2 text-left">Promedio Sano</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b">
-                  <td className="p-2">Frecuencia Cardíaca</td>
-                  <td className="p-2 text-left">
-                    {promedios.frecuencia.toFixed(2)}
-                  </td>
-                  <td className="p-2 text-left">60-100 latidos por minuto</td>
-                </tr>
-                <tr className="border-b">
-                  <td className="p-2">Oxímetro</td>
-                  <td className="p-2 text-left">
-                    {promedios.oximetro.toFixed(2)}%
-                  </td>
-                  <td className="p-2 text-left">95-100%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+    <div className="py-20">
+      <div className="container mx-auto p-6 bg-gray-50 rounded-lg shadow-md max-w-5xl">
+        <div className="header text-center mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">
+            Chaleco Inteligente
+          </h1>
         </div>
 
-        <div className="gps-data mt-8">
+        <div className="info">
           <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Estadísticas GPS
+            Datos de Frecuencia Cardíaca y Oxímetro
           </h2>
-          <div>
+          <div id="saludData">
             <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
               <thead className="bg-gray-200">
                 <tr>
-                  <th className="p-2 text-left">Fecha</th>
-                  <th className="p-2 text-left">Tiempo (min)</th>
-                  <th className="p-2 text-left">Distancia (m)</th>
-                  <th className="p-2 text-left">Velocidad (km/h)</th>
-                  <th className="p-2 text-left">Calorías quemadas</th>
+                  <th className="p-2 text-left">Frecuencia Cardíaca</th>
+                  <th className="p-2 text-left">Oxímetro</th>
+                  <th className="p-2 text-left">Tiempo</th>
                 </tr>
               </thead>
               <tbody>
-                {Object.entries(gpsStatsPorFecha).map(([fecha, stats]) => (
-                  <tr key={fecha} className="border-b hover:bg-gray-100">
-                    <td className="p-2">{fecha}</td>
-                    <td className="p-2">{stats.tiempo.toFixed(2)}</td>
-                    <td className="p-2">{stats.distancia.toFixed(2)}</td>
-                    <td className="p-2">{stats.velocidad.toFixed(2)}</td>
-                    <td className="p-2">
-                      {caloriasPorFecha[fecha]?.toFixed(2)}
-                    </td>
+                {saludData.slice(-4).map((data, index) => (
+                  <tr key={index} className="border-b hover:bg-gray-100">
+                    <td className="p-2">{data.frecuencia_cardiaca}</td>
+                    <td className="p-2">{data.oximetro}</td>
+                    <td className="p-2">{data.tiempo}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+
+            <div className="mt-4">
+              <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="p-2 text-left"> </th>
+                    <th className="p-2 text-left">Promedio Actual</th>
+                    <th className="p-2 text-left">Promedio Sano</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b">
+                    <td className="p-2">Frecuencia Cardíaca</td>
+                    <td className="p-2 text-left">
+                      {promedios.frecuencia.toFixed(2)}
+                    </td>
+                    <td className="p-2 text-left">60-100 latidos por minuto</td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="p-2">Oxímetro</td>
+                    <td className="p-2 text-left">
+                      {promedios.oximetro.toFixed(2)}%
+                    </td>
+                    <td className="p-2 text-left">95-100%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="gps-data mt-8">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              Estadísticas GPS
+            </h2>
+            <div>
+              <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead className="bg-gray-200">
+                  <tr>
+                    <th className="p-2 text-left text-sm sm:text-base">
+                      Fecha
+                    </th>
+                    <th className="p-2 text-left text-sm sm:text-base">
+                      Tiempo (min)
+                    </th>
+                    <th className="p-2 text-left text-sm sm:text-base">
+                      Distancia (m)
+                    </th>
+                    <th className="p-2 text-left text-sm sm:text-base">
+                      Velocidad (km/h)
+                    </th>
+                    <th className="p-2 text-left text-sm sm:text-base">
+                      Calorías quemadas
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Object.entries(gpsStatsPorFecha).map(([fecha, stats]) => (
+                    <tr key={fecha} className="border-b hover:bg-gray-100">
+                      <td className="p-2 text-sm sm:text-base">{fecha}</td>
+                      <td className="p-2 text-sm sm:text-base">
+                        {stats.tiempo.toFixed(2)}
+                      </td>
+                      <td className="p-2 text-sm sm:text-base">
+                        {stats.distancia.toFixed(2)}
+                      </td>
+                      <td className="p-2 text-sm sm:text-base">
+                        {stats.velocidad.toFixed(2)}
+                      </td>
+                      <td className="p-2 text-sm sm:text-base">
+                        {caloriasPorFecha[fecha]?.toFixed(2)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -256,4 +274,4 @@ const DatosSensores = () => {
   );
 };
 
-export default DatosSensores;
+export default SensorData;

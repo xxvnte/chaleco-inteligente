@@ -178,7 +178,6 @@ export const deleteUserAcount = async (req, res) => {
         message: "Usuario eliminado exitosamente",
       });
     });
-
   } catch (error) {
     console.error("Error al eliminar el usuario:", error);
     res.status(500).json({
