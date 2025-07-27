@@ -12,8 +12,8 @@ dotenv.config();
 
 const router = express.Router();
 
-router.post("/sensor_data", sendSensorData);
-router.get("/datos/:id", authenticate, getSensorData);
+//router.post("/sensor_data", sendSensorData);
+router.get("/sensor-data/:id", authenticate, getSensorData);
 router.get("/api/saludData", authenticate, getSaludData);
 router.get("/api/gpsData", authenticate, getGpsData);
 

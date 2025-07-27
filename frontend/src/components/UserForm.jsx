@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
-import { useUser } from "../hooks/useUser";
+import {
+  registerUser,
+  loginUser,
+  profileUser,
+  updateUser,
+} from "../hooks/useUser";
 
 export function Register() {
-  const { registerUser } = useUser();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -192,7 +196,6 @@ export function Register() {
 }
 
 export function Login() {
-  const { loginUser } = useUser();
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -288,7 +291,6 @@ export function Login() {
 export function EditUser() {
   const { userId } = useParams();
   const { getAuthHeaders } = useAuth();
-  const { profileUser, updateUser } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -304,7 +306,10 @@ export function EditUser() {
       try {
         const headers = getAuthHeaders();
         const data = await profileUser(userId, headers);
-        setFormData(data.user);
+        setFormData({
+          ...data.user,
+          clave: "",
+        });
       } catch (error) {
         console.error("Error al cargar los datos del usuario:", error);
       }

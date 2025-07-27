@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useParams, useNavigate } from "react-router-dom";
+import { getSensorDataByUserId } from "../network/api/sensorApi";
 import config from "../../config.json";
 
 const SensorData = () => {
@@ -22,19 +23,14 @@ const SensorData = () => {
       }
 
       try {
-        const response = await fetch(`${config.api.url}/datos/${paramUserId}`, {
-          method: "GET",
-          credentials: "include",
-          headers: getAuthHeaders(),
-        });
+        const headers = getAuthHeaders();
+        const response = await getSensorDataByUserId(paramUserId, headers);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
-
-        console.log("Response from API:", response);
 
         setUsuarioData(data.sensorData.user);
         setSaludData(data.sensorData.saludData);

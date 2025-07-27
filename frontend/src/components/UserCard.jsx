@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useUser } from "../hooks/useUser";
 import { useNavigate, useParams } from "react-router-dom";
+import { profileUser, deleteUser } from "../hooks/useUser";
 
 export function UserCard() {
-  const { profileUser, deleteUser } = useUser();
   const { userId, getAuthHeaders } = useAuth();
   const headers = getAuthHeaders();
   const { userId: paramUserId } = useParams();
