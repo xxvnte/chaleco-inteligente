@@ -1,6 +1,9 @@
-import React from "react";
+import heartIcon from "../assets/heart.svg";
+import gpsIcon from "../assets/gps.svg";
+import emergencyButtonIcon from "../assets/emergencyButton.svg";
+import oximeterIcon from "../assets/oximeter.svg";
 
-export function Home() {
+export const Home = () => {
   const handleScroll = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -9,17 +12,39 @@ export function Home() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-400 py-16 px-6">
-      <div className="text-left">
-        <h1 className="text-4xl font-bold text-gray-900">Bienvenido</h1>
-        <p className="mt-4 text-lg text-gray-900">
-          Descubre cómo el chaleco inteligente mejora tu experiencia con
-          tecnología avanzada.
+    <div className="h-screen flex items-center justify-center bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 py-16 px-6">
+      <div className="relative z-10 text-left max-w-4xl">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">Bienvenido</h1>
+        <p className="text-lg text-gray-800 leading-relaxed mb-6">
+          Nuestro chaleco inteligente está diseñado para mejorar tu experiencia
+          y seguridad mientras practicas ciclismo. Con tecnología avanzada,
+          monitorea tu salud, rastrea tu ubicación y te mantiene conectado en
+          todo momento.
         </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+          <div className="flex items-center space-x-4">
+            <img src={heartIcon} alt="Icono" className="h-6 w-6" />
+            <p className="text-gray-700">Monitor de Frecuencia Cardiaca</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <img src={gpsIcon} alt="Icono" className="h-6 w-6" />
+            <p className="text-gray-700">GPS</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <img src={emergencyButtonIcon} alt="Icono" className="h-6 w-6" />
+            <p className="text-gray-700">Botón de Emergencia</p>
+          </div>
+          <div className="flex items-center space-x-4">
+            <img src={oximeterIcon} alt="Icono" className="h-6 w-6" />
+            <p className="text-gray-700">Oxímetro</p>
+          </div>
+        </div>
+
         <div className="mt-6">
           <button
             onClick={() => handleScroll("more")}
-            className="inline-block rounded-md hover:bg-gray-700 bg-gray-800 px-4 py-2 text-white font-semibold shadow-md"
+            className="inline-block rounded-md hover:bg-gray-700 bg-gray-800 px-6 py-3 text-white font-semibold shadow-md transition transform hover:scale-105 duration-300"
           >
             Conoce Más
           </button>
@@ -27,127 +52,92 @@ export function Home() {
       </div>
     </div>
   );
-}
+};
 
-export function AboutProject() {
+export const AboutProject = () => {
   return (
-    <div className="flex flex-col items-center py-12 px-6 bg-gray-300 rounded-t-full">
-      <div className="max-w-4xl text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-6">
+    <div className="h-screen flex items-center justify-center bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 py-16 px-6">
+      <div className="relative z-10 text-left max-w-4xl">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">
           Motivación del Proyecto
         </h1>
-        <p className="text-lg text-gray-700">
-          Nuestro proyecto surge de la necesidad de mejorar la experiencia de
-          los ciclistas y hacer que sus salidas en bicicleta sean más seguras.
-          Observamos que muchos ciclistas enfrentan dificultades para monitorear
-          su salud y medir su progreso durante sus salidas. Por lo tanto, nos
-          hemos propuesto desarrollar un chaleco inteligente que les permita
-          tener un mejor control de su rendimiento y seguridad mientras están en
-          la carretera.
+        <p className="text-lg text-gray-800 leading-relaxed mb-6">
+          Este proyecto nace de la necesidad de mejorar la experiencia de los
+          ciclistas, brindándoles herramientas avanzadas para monitorear su
+          salud y garantizar su seguridad en cada trayecto. Nuestro chaleco
+          inteligente combina tecnología de punta con un diseño práctico para
+          ofrecer una solución integral a los desafíos que enfrentan los
+          ciclistas en su día a día.
         </p>
       </div>
     </div>
   );
-}
+};
 
-export function Maintenance() {
+export const Maintenance = () => {
   return (
-    <div className="flex flex-col items-center py-5 px-6 bg-gray-300 rounded-md">
-      <div className="max-w-4xl ">
-        <h1 className="text-4xl text-center font-bold text-gray-900 mb-6">
+    <div className="h-screen flex items-center justify-center bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 py-16 px-6">
+      <div className="relative z-10 text-left max-w-4xl">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">
           Instrucciones de Mantenimiento
         </h1>
-        <p className="text-lg text-center text-gray-700 mb-6">
-          Sigue estas instrucciones para mantener tu chaleco en óptimas
-          condiciones.
+        <p className="text-lg text-gray-800 leading-relaxed mb-6">
+          Para garantizar el correcto funcionamiento y la durabilidad de tu
+          chaleco inteligente, sigue estas recomendaciones:
         </p>
-        <ul className="list-none space-y-6">
+        <ul className="list-disc pl-6 space-y-4 text-gray-800">
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Limpieza del Chaleco
-            </h3>
-            <p className="text-gray-700">
-              Después de cada uso, limpia el chaleco con un paño húmedo y
-              asegúrate de que esté completamente seco antes de guardarlo.
-            </p>
+            <strong>Limpieza:</strong> Limpia el chaleco con un paño húmedo
+            después de cada uso y asegúrate de que esté completamente seco antes
+            de guardarlo.
           </li>
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Almacenamiento
-            </h3>
-            <p className="text-gray-700">
-              Guarda el chaleco en un lugar fresco y seco, alejado de la luz
-              directa del sol y de fuentes de calor.
-            </p>
+            <strong>Almacenamiento:</strong> Guarda el chaleco en un lugar
+            fresco y seco, lejos de la luz solar directa y fuentes de calor.
           </li>
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Problemas Técnicos
-            </h3>
-            <p className="text-gray-700">
-              Si experimentas problemas técnicos, por favor contacta al equipo
-              de desarrollo del proyecto a través del correo electrónico{" "}
-              <strong>vicente.leiva2@mail.udp.cl</strong>.
-            </p>
+            <strong>Problemas Técnicos:</strong> Si experimentas problemas,
+            contacta al equipo de soporte a través del correo{" "}
+            <strong>vicente.leiva2@mail.udp.cl</strong>.
           </li>
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Reinicio del Chaleco
-            </h3>
-            <p className="text-gray-700">
-              Si el chaleco no responde adecuadamente, apágalo y luego vuelve a
-              encenderlo para reiniciar el sistema.
-            </p>
+            <strong>Reinicio:</strong> Si el chaleco no responde, apágalo y
+            vuelve a encenderlo para reiniciar el sistema.
           </li>
         </ul>
       </div>
     </div>
   );
-}
+};
 
-export function More() {
+export const More = () => {
   return (
-    <div className="flex flex-col items-center py-12 px-6 bg-gray-300 rounded-md">
-      <div className="max-w-4xl text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-6">
+    <div className="h-screen flex items-center justify-center bg-gradient-to-r from-gray-400 via-gray-200 to-gray-400 py-16 px-6">
+      <div className="relative z-10 text-left max-w-4xl">
+        <h1 className="text-5xl font-bold text-gray-900 mb-6">
           Características y Beneficios
         </h1>
-        <p className="text-lg text-gray-700 mb-6">
-          Descubre cómo nuestro chaleco inteligente revoluciona la experiencia
-          de ciclismo.
+        <p className="text-lg text-gray-800 leading-relaxed mb-6">
+          Nuestro chaleco inteligente está diseñado para revolucionar la
+          experiencia de los ciclistas. Estas son algunas de sus principales
+          características:
         </p>
-        <ul className="list-none space-y-6">
+        <ul className="list-disc pl-6 space-y-4 text-gray-800">
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Monitor de Frecuencia Cardiaca y Oxímetro
-            </h3>
-            <p className="text-gray-700">
-              Permite a los ciclistas monitorear su frecuencia cardíaca y
-              oxígeno en tiempo real para garantizar un ejercicio seguro y
-              eficaz.
-            </p>
+            <strong>Monitor de Frecuencia Cardiaca y Oxímetro:</strong> Permite
+            monitorear tu salud en tiempo real, asegurando un ejercicio seguro y
+            eficiente.
           </li>
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              GPS Integrado
-            </h3>
-            <p className="text-gray-700">
-              Proporciona navegación precisa y seguimiento de la ubicación del
-              usuario, lo que permite planificar rutas seguras y eficientes.
-            </p>
+            <strong>GPS Integrado:</strong> Proporciona navegación precisa y
+            seguimiento de tu ubicación para planificar rutas seguras.
           </li>
           <li>
-            <h3 className="text-2xl font-semibold text-gray-900">
-              Botón de Emergencia
-            </h3>
-            <p className="text-gray-700">
-              Permite una comunicación rápida con contactos de emergencia en
-              situaciones críticas, proporcionando una capa adicional de
-              seguridad para el ciclista.
-            </p>
+            <strong>Botón de Emergencia:</strong> Facilita la comunicación con
+            contactos de emergencia en situaciones críticas.
           </li>
         </ul>
       </div>
     </div>
   );
-}
+};

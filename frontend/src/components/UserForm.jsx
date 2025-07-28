@@ -283,6 +283,20 @@ export const Login = () => {
             </button>
           </div>
         </form>
+        <div className="mt-6 text-center bg-gray-300 p-2 rounded-md shadow-sm">
+          <p className="text-sm text-gray-600 mb-2">
+            ¿No tienes una cuenta? Prueba con el usuario:
+          </p>
+          <div className="flex justify-center items-center space-x-2">
+            <p className="text-sm text-gray-800 font-semibold">
+              Nombre: <span className="text-gray-900">John Doe</span>
+            </p>
+            <p className="text-sm text-gray-800 font-semibold">&</p>
+            <p className="text-sm text-gray-800 font-semibold">
+              Clave: <span className="text-gray-900">12345</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

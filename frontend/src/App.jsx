@@ -18,7 +18,7 @@ function App() {
         <Route
           path="/"
           element={
-            <div className="container mx-auto p-10">
+            <div className="container mx-auto -mt-16">
               <div id="home" className="h-screen py-16">
                 <Home />
               </div>

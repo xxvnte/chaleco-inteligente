@@ -3,7 +3,7 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { RiAccountCircleFill } from "react-icons/ri";
 import { useAuth } from "../context/AuthContext";
 
-export default function Navbar() {
+const Navbar = () => {
   const { isAuthenticated, userId, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,33 +27,33 @@ export default function Navbar() {
 
   return (
     <nav className="bg-gray-800">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-8 sm:px-6">
         <div className="relative flex h-16 items-center justify-between">
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="">
               <div className="flex sm:space-x-4">
                 <button
                   onClick={() => handleScroll("home")}
-                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-2 py-2 font-medium"
                 >
                   Inicio
                 </button>
                 <button
                   onClick={() => handleScroll("aboutProject")}
-                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-2 py-2 font-medium"
                 >
                   Sobre el proyecto
                 </button>
                 <button
                   onClick={() => handleScroll("maintenance")}
-                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
+                  className="text-gray-300 text-sm sm:text-base hover:bg-gray-700 hover:text-white rounded-md px-2 py-2 font-medium"
                 >
                   Mantenimiento
                 </button>
               </div>
             </div>
           </div>
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+          <div className="inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <Menu as="div" className="relative ml-3">
               <div>
                 <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -79,7 +79,7 @@ export default function Navbar() {
                         to={`/data/${userId}`}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       >
-                        Tus datos
+                        Chaleco Inteligente
                       </Link>
                     </MenuItem>
                     <MenuItem>
@@ -118,4 +118,6 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
