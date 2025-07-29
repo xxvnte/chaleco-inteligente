@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Register, Login, EditUser } from "./components/UserForm";
 import Navbar from "./components/Navbar";
@@ -8,6 +9,37 @@ import SensorData from "./components/SensorData";
 
 function App() {
   const { isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkBackend = async () => {
+      try {
+        const response = await fetch(`${config.api.url}/backendIsActive`);
+        if (response.ok) {
+          console.log("Backend activo");
+        } else {
+          console.error("Backend no disponible");
+        }
+      } catch (error) {
+        console.error("Error al conectar con el backend:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkBackend();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-screen bg-gray-400">
+        <div className="text-center">
+          <div className="loader mb-4"></div>
+          <p className="text-lg font-semibold text-gray-800">Cargando...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className="bg-gray-400 min-h-screen">

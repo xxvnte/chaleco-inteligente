@@ -130,19 +130,19 @@ const SensorData = () => {
               <table className="table-auto w-full bg-white rounded-lg shadow-lg overflow-hidden">
                 <thead className="bg-gray-200">
                   <tr>
-                    <th className="p-2 text-left text-sm sm:text-base">
+                    <th className="p-2 text-left text-xs sm:text-base">
                       Fecha
                     </th>
-                    <th className="p-2 text-left text-sm sm:text-base">
+                    <th className="p-2 text-left text-xs sm:text-base">
                       Tiempo (min)
                     </th>
-                    <th className="p-2 text-left text-sm sm:text-base">
+                    <th className="p-2 text-left text-xs sm:text-base">
                       Distancia (m)
                     </th>
-                    <th className="p-2 text-left text-sm sm:text-base">
+                    <th className="p-2 text-left text-xs sm:text-base">
                       Velocidad (km/h)
                     </th>
-                    <th className="p-2 text-left text-sm sm:text-base">
+                    <th className="p-2 text-left text-xs sm:text-base">
                       Calorías quemadas
                     </th>
                   </tr>
@@ -150,17 +150,17 @@ const SensorData = () => {
                 <tbody>
                   {Object.entries(gpsStatsPorFecha).map(([fecha, stats]) => (
                     <tr key={fecha} className="border-b hover:bg-gray-100">
-                      <td className="p-2 text-sm sm:text-base">{fecha}</td>
-                      <td className="p-2 text-sm sm:text-base">
+                      <td className="p-2 text-xs sm:text-base">{fecha}</td>
+                      <td className="p-2 text-xs sm:text-base">
                         {stats.tiempo.toFixed(2)}
                       </td>
-                      <td className="p-2 text-sm sm:text-base">
+                      <td className="p-2 text-xs sm:text-base">
                         {stats.distancia.toFixed(2)}
                       </td>
-                      <td className="p-2 text-sm sm:text-base">
+                      <td className="p-2 text-xs sm:text-base">
                         {stats.velocidad.toFixed(2)}
                       </td>
-                      <td className="p-2 text-sm sm:text-base">
+                      <td className="p-2 text-xs sm:text-base">
                         {caloriasPorFecha[fecha]?.toFixed(2)}
                       </td>
                     </tr>

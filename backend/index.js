@@ -9,6 +9,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/backendIsActive", (req, res) => {
+  res.status(200).send("OK");
+});
+
 app.use(userRouter);
 app.use(sensorRouter);
 
