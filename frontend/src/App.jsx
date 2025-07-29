@@ -6,6 +6,7 @@ import { Home, AboutProject, Maintenance, More } from "./components/Sections";
 import UserCard from "./components/UserCard";
 import { useAuth } from "./context/AuthContext";
 import SensorData from "./components/SensorData";
+import config from "../config.json";
 
 function App() {
   const { isAuthenticated } = useAuth();
